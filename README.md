@@ -1,18 +1,21 @@
-<h1>I use this project to improve my php Laravel skill </h1>
-<h1> Sub projects</h1>
-<ol>
-    <li>
-        <h2> 📰 News blog web page</h2>
-        <small> created an article news web page using Larval and Bootstrap this project helped me to understand the model relationship and routing</small>
-    </li>
-    <li>
-        <h2> 📊 CMS</h2>
-        <small>  I created a customer management system using Larval and Bootstrap this project helped me to understand the concept of model relationships like one-to-many or many-to-many and also the role permission with different users role</small>
-    </li>
-    <li>
-        <h2>
-           🛒 web shop cart
-        </h2>
-         <small>  I created a fully functional web shop  using Larval, Bootstrap, and jQuery this project helped me to understand how to work with sessions while the user is not yet signed or registered , how to use Paypal for test payment and pdf invoice via email using mailtrap</small>
-    </li>
-</ol>
+
+---
+
+# Laravel Projects Showcase
+
+This repository showcases my journey in honing my PHP Laravel skills through practical project implementations. Below are the projects included:
+
+1. ## News Blog Web Page 📰
+   - Developed an article news web page utilizing Laravel and Bootstrap.
+   - Key Learnings: Understanding model relationships and routing within Laravel.
+
+2. ## CMS (Customer Management System) 📊
+   - Built a comprehensive customer management system using Laravel and Bootstrap.
+   - Key Learnings: Mastery of model relationships such as one-to-many and many-to-many, and implementation of role permissions for different user roles.
+
+3. ## Web Shop Cart 🛒
+   - Created a fully functional web shop with Laravel, Bootstrap, and jQuery.
+   - Notable Features: Integration of session management for non-registered users, implementation of test payment via PayPal, and generation of PDF invoices through email using Mailtrap.
+   - Key Learnings: Working with sessions, payment gateways, and email services within Laravel applications.
+
+---
