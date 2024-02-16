@@ -28,5 +28,6 @@ Follow these steps to set up and run the projects locally on your machine.
    ```bash
    git clone https://github.com/nahom17/Laravel-Learning-Projects.git
    
-```bash
-   cd LaravelMixedProjects
+  ```bash
+   cd Laravel-Learning-Projects
+
