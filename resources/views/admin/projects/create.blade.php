@@ -93,7 +93,7 @@
                     <label for="">Bedrijf</label>
                     <select class="form-select @error('company_id') is-invalid @else @enderror" name="company_id" id="select1">
                         @php
-                        $companies = App\Models\Company::orderBy('name')->get();
+                        $companies = \App\Models\Company::orderBy('name')->get();
                         @endphp
                         @foreach ( $companies as $company )
                         <option value="{{  $company->id}}">{{  $company->name}}</option>

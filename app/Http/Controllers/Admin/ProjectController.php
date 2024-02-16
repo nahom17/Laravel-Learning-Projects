@@ -67,7 +67,7 @@ class ProjectController extends Controller
 
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
-        $project->company_id = $request->company;
+        $project->company_id = $request->company_id;
         $project->save();
 
         return redirect()->route('admin.projects.index')->with('message', 'Project toegevoged');

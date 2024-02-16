@@ -73,7 +73,7 @@
                     <label for="">Gebruiker</label>
                     <select class="form-select @error('attribute_id') is-invalid @else @enderror" name="attribute_id" id="select1">
                         @php
-                        $attributes = App\Models\ Attribute::all();
+                        $attributes = \App\Models\Attribute::all();
                         @endphp
                         @foreach ( $attributes as $attribute )
                         <option value="{{ $attribute->id}}">{{ $attribute->name}}</option>

@@ -53,7 +53,7 @@
                                 <td>{{$task->user->name}}</td>
                                 <td>{{ date('d-m-Y', strtotime($task->start_date)) }}</td>
                                 <td>{{ date('d-m-Y', strtotime($task->end_date)) }}</td>
-                                <td>{{$task->Completed == '1' ? "Afgrond" : 'open' && $task->completed == '0' ? "Open" : 'Afgerond'}}</td>
+                                <td>{{ $task->Completed == '1' ? "Afgerond" : ($task->completed == '0' ? "Open" : "Afgerond") }}</td>
                                 <td>
                                     <a href="{{ route('admin.tasks.edit',$task) }}"
                                         class="nav nav-link text-dark text-decoration-none">Bewerken</a>

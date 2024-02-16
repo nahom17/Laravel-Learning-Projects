@@ -25,7 +25,7 @@
                     <form action="{{ route('admin.products.accessories.update',[$product,$accessory])}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
-                    
+
             <div class="mb-3">
             <label for="name">Naam</label>
             <input type="text" name="name" value="{{ $accessory->name }}" class="form-control  @error('name') is-invalid @else @enderror" />
@@ -76,7 +76,7 @@
                     <label for="">Categorie</label>
                     <select class="form-select @error('attribute_id') is-invalid @else @enderror" name="attribute_id" id="select1">
                         @php
-                        $attributes = App\Models\ Attribute::all();
+                        $attributes = \App\Models\Attribute::all();
                         @endphp
                         @foreach ( $attributes as $attribute )
                         <option value="{{ $attribute->id}}">{{ $attribute->name}}</option>
