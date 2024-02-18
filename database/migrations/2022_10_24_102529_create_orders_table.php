@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateOrdersTable extends Migration
 {
@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('city');
             $table->string('phone_number');
             $table->string('email');
-            $table->float('total_amount',20,2);
+            $table->float('total_amount', 20, 2);
             $table->timestamps();
         });
     }

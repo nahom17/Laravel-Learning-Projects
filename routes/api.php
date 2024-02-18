@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'paypal'], function(){
-    Route::post('/order/create',[PaypalPaymentController::class, 'create' ])->name('create');
-    Route::post('/order/capture/',[PaypalPaymentController::class, 'capture'])->name('capture');
+Route::group(['prefix' => 'paypal'], function () {
+    Route::post('/order/create', [PaypalPaymentController::class, 'create'])->name('create');
+    Route::post('/order/capture/', [PaypalPaymentController::class, 'capture'])->name('capture');
 });

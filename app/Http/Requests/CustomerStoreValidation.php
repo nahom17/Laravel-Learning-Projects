@@ -37,15 +37,14 @@ class CustomerStoreValidation extends FormRequest
     {
         return [
 
-            'name.required' => "Vul een geldige naam in",
-            'address.required' =>"Vul een geldige adres in",
-            'zip_code.required'=> "Vul een geldige postcode in",
-            'city.required'=>"Vul een geldige stad in",
-            'phone_number.required'=>"Vul een geldige telefoonnummer in",
-            'phone_number.numeric'=>"Vul een geldige telefoonnummer in",
-            'email.required' => "Vuel een geldige email in",
-            'email.email' => "Vuel een geldige email in",
-
+            'name.required' => 'Vul een geldige naam in',
+            'address.required' => 'Vul een geldige adres in',
+            'zip_code.required' => 'Vul een geldige postcode in',
+            'city.required' => 'Vul een geldige stad in',
+            'phone_number.required' => 'Vul een geldige telefoonnummer in',
+            'phone_number.numeric' => 'Vul een geldige telefoonnummer in',
+            'email.required' => 'Vuel een geldige email in',
+            'email.email' => 'Vuel een geldige email in',
 
         ];
     }

@@ -24,44 +24,41 @@ class TaskStoreValidation extends FormRequest
     public function rules()
     {
         return [
-            'title'=>[
-                'required'
+            'title' => [
+                'required',
             ],
-            'description'=>[
-                'required'
+            'description' => [
+                'required',
             ],
-            'start_date'=>[
+            'start_date' => [
                 'required',
 
             ],
-            'end_date'=>[
+            'end_date' => [
                 'required',
-                'after:start_date'
+                'after:start_date',
             ],
-            'user_id'=>[
-                'required'
+            'user_id' => [
+                'required',
             ],
-            'project_id'=>[
-                'required'
-            ]
-
-
+            'project_id' => [
+                'required',
+            ],
 
         ];
     }
-     public function messages()
+
+    public function messages()
     {
         return [
 
-            'title.required' => "Het titel is verplicht",
-            'description.required' => " Het beschrijving is verplicht",
-            'start_date.required' => "Het start datum is verplicht",
-           'end_date.required' => "Het eind datum is verplicht",
-            'end_date.after' => " Het eind datum moet een datum zijn start datum",
-            'user_id.required' => "Het kiezen van gebruiker is verplicht ",
-            'project_id.required' => "Het kiezen van project is verplicht ",
-
-
+            'title.required' => 'Het titel is verplicht',
+            'description.required' => ' Het beschrijving is verplicht',
+            'start_date.required' => 'Het start datum is verplicht',
+            'end_date.required' => 'Het eind datum is verplicht',
+            'end_date.after' => ' Het eind datum moet een datum zijn start datum',
+            'user_id.required' => 'Het kiezen van gebruiker is verplicht ',
+            'project_id.required' => 'Het kiezen van project is verplicht ',
 
         ];
     }

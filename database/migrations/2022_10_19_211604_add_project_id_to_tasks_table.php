@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddProjectIdToTasksTable extends Migration
 {
@@ -15,10 +15,10 @@ class AddProjectIdToTasksTable extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->foreignId('project_id')
-            ->after('user_id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->after('user_id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

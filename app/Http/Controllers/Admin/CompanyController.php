@@ -14,12 +14,15 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::orderByDesc('id')->paginate(30);
+
         return view('admin.company.index', compact('companies'));
     }
+
     public function create()
     {
         return view('admin.company.create');
     }
+
     public function store(CompanyStoreValidation $request)
     {
         $company = new Company;
@@ -29,26 +32,32 @@ class CompanyController extends Controller
         $company->phone_number = $request->phone_number;
         $company->email = $request->email;
         $company->save();
+
         return redirect()->route(('admin.companies.index'))->with('message', 'Bedrijf toegevoegd');
     }
+
     public function search(Request $request)
     {
         $search = $request->input('search');
         $companies = Company::query()
-            ->where('name', 'LIKE', "%" . $search . "%")
-            ->ORwhere('email', 'LIKE', "%" . $search . "%")
+            ->where('name', 'LIKE', '%'.$search.'%')
+            ->ORwhere('email', 'LIKE', '%'.$search.'%')
             ->paginate(30);
+
         return view('admin.company.index', compact('companies'));
     }
+
     public function edit(Company $company)
     {
-        $companyPersons = CompanyPerson::where('company_id' , $company->id)->get();
+        $companyPersons = CompanyPerson::where('company_id', $company->id)->get();
         $persons = Person::orderBy('name')->get();
-        foreach($companyPersons as $companyPerson) {
+        foreach ($companyPersons as $companyPerson) {
             $persons = $persons->where('id', '!=', $companyPerson->person_id);
         }
-        return view('admin.company.edit',compact('persons','company'));
+
+        return view('admin.company.edit', compact('persons', 'company'));
     }
+
     public function update(CompanyStoreValidation $request, Company $company)
     {
         $company->name = $request->name;
@@ -57,11 +66,14 @@ class CompanyController extends Controller
         $company->phone_number = $request->phone_number;
         $company->email = $request->email;
         $company->update();
+
         return redirect()->route('admin.companies.index')->with('message', 'Bedrijf bijgewerkt');
     }
+
     public function destroy(Company $company)
     {
         $company->delete();
+
         return redirect()->route('admin.companies.index')->with('message', 'Bedrijf verwijdered');
     }
 }

@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderProduct;
-use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PaypalPaymentController extends Controller
 {
-
-
     public function create(Request $request)
     {
         $data = json_decode($request->getContent(), true);
@@ -20,26 +16,26 @@ class PaypalPaymentController extends Controller
         $token = $this->paypalClient->getAccessToken();
         $this->paypalClient->setAccessToken($token);
         $order = $this->paypalClient->createOrder([
-            "intent"=> "CAPTURE",
-            "purchase_units"=> [
+            'intent' => 'CAPTURE',
+            'purchase_units' => [
                 [
-                    "amount"=> [
-                        "currency_code"=> "EURO",
-                        "value"=> $data['total_amount']
+                    'amount' => [
+                        'currency_code' => 'EURO',
+                        'value' => $data['total_amount'],
                     ],
-                    'description' => 'test'
-                ]
+                    'description' => 'test',
+                ],
             ],
         ]);
-        $mergeData = array_merge($data,['status' => TransactionStatus::PENDING, 'vendor_order_id' => $order['id']]);
+        $mergeData = array_merge($data, ['status' => TransactionStatus::PENDING, 'vendor_order_id' => $order['id']]);
         DB::beginTransaction();
         Order::create($mergeData);
         DB::commit();
+
         return response()->json($order);
 
-
         //return redirect($order['links'][1]['href'])->send();
-       // echo('Create working');
+        // echo('Create working');
     }
 
     public function capture(Request $request)
@@ -51,15 +47,15 @@ class PaypalPaymentController extends Controller
         $this->paypalClient->setAccessToken($token);
         $result = $this->paypalClient->capturePaymentOrder($orderId);
 
-//            $result = $result->purchase_units[0]->payments->captures[0];
+        //            $result = $result->purchase_units[0]->payments->captures[0];
         try {
             DB::beginTransaction();
-            if($result['status'] === "COMPLETED"){
+            if ($result['status'] === 'COMPLETED') {
                 $transaction = new TransactionStatus;
                 $transaction->vendor_payment_id = $orderId;
-                $transaction->payment_gateway_id  = $data['payment_gateway_id'];
-                $transaction->user_id   = $data['user_id'];
-                $transaction->status   = TransactionStatus::COMPLETED;
+                $transaction->payment_gateway_id = $data['payment_gateway_id'];
+                $transaction->user_id = $data['user_id'];
+                $transaction->status = TransactionStatus::COMPLETED;
                 $transaction->save();
                 $order = Order::where('vendor_order_id', $orderId)->first();
                 $order->transaction_id = $transaction->id;
@@ -71,6 +67,7 @@ class PaypalPaymentController extends Controller
             DB::rollBack();
             dd($e);
         }
+
         return response()->json($result);
     }
 }

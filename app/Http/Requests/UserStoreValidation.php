@@ -26,37 +26,36 @@ class UserStoreValidation extends FormRequest
         $rules = [
             'name' => [
                 'required',
-                'string'
+                'string',
             ],
-            'email'=>[
+            'email' => [
                 'required',
                 'string',
-                'unique:users'
+                'unique:users',
             ],
-            'password'=>[
+            'password' => [
                 'required',
                 'string',
-                'confirmed'
+                'confirmed',
             ],
-            'password_confirmation'=>[
+            'password_confirmation' => [
                 'required',
-                'string'
-            ]
+                'string',
+            ],
         ];
-            return $rules;
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
 
-            'name.required' => "Het naam is verplicht",
-            'email.unique' => "Het email is al bezet",
-            'email.required' => "Het email is verplicht",
-            'password.required' => "Het wachtwoord is verplicht",
-            'password.confirmed'=> "Het wachtwoord bevestiging komt niet overeen",
-
-
+            'name.required' => 'Het naam is verplicht',
+            'email.unique' => 'Het email is al bezet',
+            'email.required' => 'Het email is verplicht',
+            'password.required' => 'Het wachtwoord is verplicht',
+            'password.confirmed' => 'Het wachtwoord bevestiging komt niet overeen',
 
         ];
     }

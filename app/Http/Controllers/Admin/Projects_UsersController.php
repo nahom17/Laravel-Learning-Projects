@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Role;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Project_User;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class Projects_UsersController extends Controller
 {
@@ -30,17 +30,17 @@ class Projects_UsersController extends Controller
     {
         $projectUsers = Project_User::where('project_id', $project->id)->get();
         $users = User::orderBy('name')->get();
-        foreach($projectUsers as $projectUser) {
+        foreach ($projectUsers as $projectUser) {
             $users = $users->where('id', '!=', $projectUser->user_id);
         }
         $roles = Role::all();
-        return view('admin.projects.user.create', compact('users', 'project','roles'));
+
+        return view('admin.projects.user.create', compact('users', 'project', 'roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Project $project)
@@ -50,7 +50,8 @@ class Projects_UsersController extends Controller
         $projectUser->project_id = $project->id;
         $projectUser->role_id = $request->role_id;
         $projectUser->save();
-        return redirect()->route('admin.projects.users.indexUser',$project )->with('message' , 'Gebruiker is toegevoegd');
+
+        return redirect()->route('admin.projects.users.indexUser', $project)->with('message', 'Gebruiker is toegevoegd');
     }
 
     /**
@@ -73,21 +74,22 @@ class Projects_UsersController extends Controller
     public function edit(Project $project, Project_User $user)
     {
         $roles = Role::all();
-        return view('admin.projects.user.editRole',compact('project','user', 'roles'));
+
+        return view('admin.projects.user.editRole', compact('project', 'user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project , Project_User $user)
+    public function update(Request $request, Project $project, Project_User $user)
     {
         $user->role_id = $request->role_id;
         $user->save();
-        return redirect()->route('admin.projects.users.indexUser',$project )->with('message' , 'Gebruiker rol is bijwerkt');
+
+        return redirect()->route('admin.projects.users.indexUser', $project)->with('message', 'Gebruiker rol is bijwerkt');
     }
 
     /**
@@ -100,7 +102,8 @@ class Projects_UsersController extends Controller
     {
         $this->authorize('isAdmin', User::class);
         $user->delete();
-        return redirect()->route('admin.projects.users.indexUser',$project )->with('message' , 'Gebruiker is verwijdered');
+
+        return redirect()->route('admin.projects.users.indexUser', $project)->with('message', 'Gebruiker is verwijdered');
 
     }
 }

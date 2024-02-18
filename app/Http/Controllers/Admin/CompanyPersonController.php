@@ -18,6 +18,7 @@ class CompanyPersonController extends Controller
     public function index(Company $company)
     {
         $companiesPerson = CompanyPerson::all();
+
         return view('admin.company.person.index', compact('companiesPersons'));
     }
 
@@ -30,7 +31,7 @@ class CompanyPersonController extends Controller
     {
         $companyPersons = CompanyPerson::where('company_id', $company->id)->get();
         $persons = Person::orderby('name')->get();
-        foreach($companyPersons as $companyPerson) {
+        foreach ($companyPersons as $companyPerson) {
             $persons = $persons->where('id', '!=', $companyPerson->person_id);
         }
     }
@@ -38,7 +39,6 @@ class CompanyPersonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -71,7 +71,6 @@ class CompanyPersonController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

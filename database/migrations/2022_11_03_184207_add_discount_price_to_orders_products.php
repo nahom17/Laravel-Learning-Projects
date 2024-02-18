@@ -14,9 +14,10 @@ class AddDiscountPriceToOrdersProducts extends Migration
     public function up()
     {
         Schema::table('orders_products', function (Blueprint $table) {
-            $table->float('discount_price',20,2)->nullable()->after('price_excl');
+            $table->float('discount_price', 20, 2)->nullable()->after('price_excl');
         });
     }
+
     /**
      * Reverse the migrations.
      *

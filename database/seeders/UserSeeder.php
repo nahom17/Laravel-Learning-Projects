@@ -17,16 +17,16 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-        'name' => 'admin',
-        'first_name' => 'Nahom',
-        'last_name' => 'Tesfamichael',
-        'address' => 'vrydemalaan 44',
-        'zipcode' => '9713 WS',
-        'phone_number' => '068707654354',
-        'avatar' => 'default.png',
-        'email' => 'admin@customwebsite.nl',
-        'password' => Hash::make('Welkom123'),
-        'role_id' => Role::ADMIN
+            'name' => 'admin',
+            'first_name' => 'Nahom',
+            'last_name' => 'Tesfamichael',
+            'address' => 'vrydemalaan 44',
+            'zipcode' => '9713 WS',
+            'phone_number' => '068707654354',
+            'avatar' => 'default.png',
+            'email' => 'admin@customwebsite.nl',
+            'password' => Hash::make('Welkom123'),
+            'role_id' => Role::ADMIN,
 
         ]);
     }

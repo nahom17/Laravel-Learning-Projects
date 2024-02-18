@@ -26,58 +26,59 @@ class ProductStoreValidation extends FormRequest
         $rules =
             [
 
-            'name' => [
-                'required',
-                'string'
+                'name' => [
+                    'required',
+                    'string',
 
-            ],
-            'description' => [
-                'max:4000',
-                'required',
-            ],
-            'image' => [
-                'required',
-                'image',
+                ],
+                'description' => [
+                    'max:4000',
+                    'required',
+                ],
+                'image' => [
+                    'required',
+                    'image',
 
-            ],
-            'price' =>[
-                'required',
-                'numeric',
-                'gte:0'
+                ],
+                'price' => [
+                    'required',
+                    'numeric',
+                    'gte:0',
 
-            ],
-            'discount_price'=>[
-                'nullable',
-                'numeric',
-                'lte:price',
-                'gte:0'
+                ],
+                'discount_price' => [
+                    'nullable',
+                    'numeric',
+                    'lte:price',
+                    'gte:0',
 
-            ],
-            'vat'=>[
-                'required',
-                'integer'
-            ]
-        ];
+                ],
+                'vat' => [
+                    'required',
+                    'integer',
+                ],
+            ];
+
         return $rules;
     }
+
     public function messages()
     {
         return [
 
-            'name.required' => "Het naam is verplicht",
-            'description.required' => " Het beschrijving is verplicht",
-            'image.required'=> "Het afbeeldingsbestand is verplicht ",
-            'image.image'=>'voeg een afbeelding met jpeg,png,jpg,gif,webp extensie',
-            'price.required' => " Het prijs is verplicht",
-            'price.gte' => "het korting prijst moet niet negative (-20 of --20)",
+            'name.required' => 'Het naam is verplicht',
+            'description.required' => ' Het beschrijving is verplicht',
+            'image.required' => 'Het afbeeldingsbestand is verplicht ',
+            'image.image' => 'voeg een afbeelding met jpeg,png,jpg,gif,webp extensie',
+            'price.required' => ' Het prijs is verplicht',
+            'price.gte' => 'het korting prijst moet niet negative (-20 of --20)',
 
-            'price.between' => "Vul geldig prijs in",
-            'discount_price.numeric' => "Vul geldig korting prijs in  (geen - voor de cijfer)",
-            'discount_price.gte' => "vul geldig korting prijs in (min : 0)",
-            'discount_price.lte' => "het korting prijst moet lager dan orginaal price",
-            'vat.required' => " Het btw is verplicht",
-            'vat.integer' =>"Het btw moet integer"
-
+            'price.between' => 'Vul geldig prijs in',
+            'discount_price.numeric' => 'Vul geldig korting prijs in  (geen - voor de cijfer)',
+            'discount_price.gte' => 'vul geldig korting prijs in (min : 0)',
+            'discount_price.lte' => 'het korting prijst moet lager dan orginaal price',
+            'vat.required' => ' Het btw is verplicht',
+            'vat.integer' => 'Het btw moet integer',
 
         ];
     }

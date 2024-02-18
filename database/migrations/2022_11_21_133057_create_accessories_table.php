@@ -19,8 +19,8 @@ class CreateAccessoriesTable extends Migration
             $table->foreignId('attribute_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->float('price',20,2);
-            $table->float('discount_price',20,2)->nullable();
+            $table->float('price', 20, 2);
+            $table->float('discount_price', 20, 2)->nullable();
             $table->integer('vat');
             $table->timestamps();
         });

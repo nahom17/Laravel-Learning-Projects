@@ -25,24 +25,24 @@ class CartStoreValidation extends FormRequest
     {
         $rules =
             [
-            'quantity'=>[
-                'required',
-                'integer',
-                'min:1',
+                'quantity' => [
+                    'required',
+                    'integer',
+                    'min:1',
 
-            ]
-        ];
+                ],
+            ];
+
         return $rules;
     }
+
     public function messages()
     {
         return [
 
-            'quantity.required' => "Het aantal is niet lager dan 1",
-            'quantity.integer' => "Ongeldig aantal",
-            'quantity.min'=>"Het mimum is niet lager dan 1",
-        
-
+            'quantity.required' => 'Het aantal is niet lager dan 1',
+            'quantity.integer' => 'Ongeldig aantal',
+            'quantity.min' => 'Het mimum is niet lager dan 1',
 
         ];
     }
