@@ -6,14 +6,13 @@ use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class orderMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $order;
     //public $products;
-
 
     /**
      * Create a new message instance.
@@ -35,6 +34,6 @@ class orderMail extends Mailable
     public function build()
     {
         return $this->subject('Bestelling overzicht')
-                    ->view('emails.orderMail');
+            ->view('emails.orderMail');
     }
 }

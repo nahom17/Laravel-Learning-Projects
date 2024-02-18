@@ -24,30 +24,30 @@ class OrderPriceUpdateValidation extends FormRequest
     public function rules()
     {
         return [
-            'price' =>[
+            'price' => [
                 'nullable',
                 'between:0,999.99',
-                'gt:discount_price'
+                'gt:discount_price',
 
             ],
-            'discount_price'=>[
+            'discount_price' => [
                 'nullable',
                 'numeric',
                 'between:0,999.99',
-                'min:0'
-            ]
+                'min:0',
+            ],
         ];
     }
+
     public function messages()
     {
         return [
 
-
-            'price.gt' => "korting prijs  moet lager dan normaal prijs excl",
+            'price.gt' => 'korting prijs  moet lager dan normaal prijs excl',
             //'discount_price.lte' => "het korting prijst moet lager dan orginaal price",
-            'discount_price.integer' => "het korting prijst moet lager dan orginaal price",
-            'discount_price.between' => "Vul geldig korting prijs in geen - , --",
-            'discount_price.min' => "Vul geldig Korting prijs in",
+            'discount_price.integer' => 'het korting prijst moet lager dan orginaal price',
+            'discount_price.between' => 'Vul geldig korting prijs in geen - , --',
+            'discount_price.min' => 'Vul geldig Korting prijs in',
         ];
     }
 }

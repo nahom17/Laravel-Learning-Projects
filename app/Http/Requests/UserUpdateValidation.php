@@ -26,23 +26,24 @@ class UserUpdateValidation extends FormRequest
         $rules = [
             'name' => [
                 'required',
-                'string'
+                'string',
             ],
-            'email'=>[
+            'email' => [
                 'required',
                 'string',
 
-            ]
+            ],
         ];
-         return $rules;
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
 
-            'name.required' => "Het gebruikernaam is verplicht",
-            'email.required' => "Het email is verplicht",
+            'name.required' => 'Het gebruikernaam is verplicht',
+            'email.required' => 'Het email is verplicht',
 
         ];
     }

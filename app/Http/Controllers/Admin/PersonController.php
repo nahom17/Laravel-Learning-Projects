@@ -9,13 +9,12 @@ use Illuminate\Http\Request;
 
 class PersonController extends Controller
 {
-
     public function index()
     {
         $persons = Person::orderByDesc('id')->paginate(30);
-        return view('admin.person.index',compact('persons'));
-    }
 
+        return view('admin.person.index', compact('persons'));
+    }
 
     public function create()
     {
@@ -31,6 +30,7 @@ class PersonController extends Controller
         $person->phone_number = $request->phone_number;
         $person->email = $request->email;
         $person->save();
+
         return redirect()->route(('admin.persons.index'))->with('message', 'Persoon toegevoegd');
     }
 
@@ -47,19 +47,18 @@ class PersonController extends Controller
 
         // Search in the title and body columns from the posts table
         $persons = Person::query()
-            ->where('name', 'LIKE', "%" . $search . "%")
-            ->ORwhere('email', 'LIKE', "%" . $search . "%")
+            ->where('name', 'LIKE', '%'.$search.'%')
+            ->ORwhere('email', 'LIKE', '%'.$search.'%')
             ->paginate(30);
-        // Return the search view with the resluts compacted
-        return view('admin.person.index',compact('persons'));
-    }
 
+        // Return the search view with the resluts compacted
+        return view('admin.person.index', compact('persons'));
+    }
 
     public function edit(Person $person)
     {
-        return view('admin.person.edit',compact('person'));
+        return view('admin.person.edit', compact('person'));
     }
-
 
     public function update(CompanyStoreValidation $request, Person $person)
     {
@@ -69,13 +68,14 @@ class PersonController extends Controller
         $person->phone_number = $request->phone_number;
         $person->email = $request->email;
         $person->save();
+
         return redirect()->route(('admin.persons.index'))->with('message', 'Persoon bijgewerkt');
     }
-
 
     public function destroy(Person $person)
     {
         $person->delete();
+
         return redirect()->route(('admin.persons.index'))->with('message', 'Persoon verwijdered');
     }
 }

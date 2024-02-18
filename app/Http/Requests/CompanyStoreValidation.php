@@ -25,40 +25,40 @@ class CompanyStoreValidation extends FormRequest
     {
 
         return [
-            'name'=>[
+            'name' => [
                 'required',
-                'string'
+                'string',
             ],
-            'address'=>[
+            'address' => [
                 'required',
-                'string'
+                'string',
             ],
-            'zip_code' =>[
+            'zip_code' => [
                 'required',
-                'string'
+                'string',
             ],
-            'phone_number'=>[
+            'phone_number' => [
                 'required',
-                'numeric'
+                'numeric',
             ],
-            'email'=>[
+            'email' => [
                 'required',
                 'email:strict',
-            ]
+            ],
         ];
     }
-        public function messages()
+
+    public function messages()
     {
         return [
 
-            'name.required' => "Het naam is verplicht",
-            'address.required' => "Het adres is verplicht",
-            'zip_code.required' => "Het postcode is verplicht",
-            'phone_number.required' => "Het telefoonnummer is verplicht",
-            'phone_number.numeric' => "Vul in geldig telfoonnummer in",
-            'email.required' => "Het email is verplicht",
-            'email.strict' => "Vul in geldig email in",
-
+            'name.required' => 'Het naam is verplicht',
+            'address.required' => 'Het adres is verplicht',
+            'zip_code.required' => 'Het postcode is verplicht',
+            'phone_number.required' => 'Het telefoonnummer is verplicht',
+            'phone_number.numeric' => 'Vul in geldig telfoonnummer in',
+            'email.required' => 'Het email is verplicht',
+            'email.strict' => 'Vul in geldig email in',
 
         ];
     }

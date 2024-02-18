@@ -15,10 +15,10 @@ class AddUserIdToArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->foreignId('user_id')
-            ->after('id')
-            ->constrained()
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
+                ->after('id')
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

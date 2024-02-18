@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Models;
-use App\Models\Product;
-use App\Models\Order;
-use App\Models\Accessory;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderAccessory extends Model
 {
     use HasFactory;
-    protected $table = "order_accessories";
+
+    protected $table = 'order_accessories';
+
     protected $fillable = [
         'order_id',
         'accessory_id',
@@ -18,7 +18,7 @@ class OrderAccessory extends Model
         'accessory_name',
         'price',
         'discount_price',
-        'vat'
+        'vat',
     ];
 
     public function product()

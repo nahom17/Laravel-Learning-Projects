@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\OrderProduct;
-use App\Models\OrderAccessory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     use HasFactory;
-    protected $table = "orders";
+
+    protected $table = 'orders';
+
     protected $fillable = [
         'name',
         'address',
@@ -21,7 +21,7 @@ class Order extends Model
         'total_vat',
         'total_price_excl',
         'total_amount',
-        'status'
+        'status',
 
     ];
 
@@ -34,8 +34,4 @@ class Order extends Model
     {
         return $this->hasMany(OrderAccessory::class);
     }
-
-
-
-
 }
