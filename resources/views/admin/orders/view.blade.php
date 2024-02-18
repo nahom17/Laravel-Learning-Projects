@@ -104,30 +104,43 @@ $newTotal = 0;
                 </thead>
                 @foreach ($order->products as $item)
                     <tbody class="me-2">
-                        @php
-                                // if($item->total)
-                                // {
-                                // $total += $item->total * $item->quantity * ($item->product->vat / 100) + $item->total * $item->quantity;
-                                // $total_price_excl += $item->total * $item->quantity;
-                                // $total_vat += $item->total * $item->quantity * ($item->product->vat / 100);
-                                // $total_discount += ($item->product->price * $item->quantity) - ($item->discount_price * $item->quantity);
-                                // }
-                                // else
-                                if ($item->discount_price)
-                                {
-                                $total += $item->discount_price * $item->quantity * ($item->product->vat / 100) + $item->discount_price * $item->quantity;
+                    @php
+                        $total = 0;
+                        $total_price_excl = 0;
+                        $total_vat = 0;
+                        $total_discount = 0;
+
+                        foreach ($order->products as $item) {
+                            if ($item->discount_price) {
+                                $total += ($item->discount_price * $item->quantity * ($item->product->vat / 100)) + ($item->discount_price * $item->quantity);
                                 $total_price_excl += $item->discount_price * $item->quantity;
-                                $total_vat += $item->discount_price * $item->quantity * ($item->product->vat / 100);
+                                $total_vat += ($item->discount_price * $item->quantity * ($item->product->vat / 100));
                                 $total_discount += ($item->product->price * $item->quantity) - ($item->discount_price * $item->quantity);
+                            } else {
+                                $total += ($item->product->price * $item->quantity * ($item->product->vat / 100)) + ($item->product->price * $item->quantity);
+                                $total_price_excl += $item->product->price * $item->quantity;
+
+                                if ($item->product->discount_price) {
+                                    $total_vat += ($item->product->discount_price * $item->quantity * ($item->product->vat / 100));
+                                } else {
+                                    $total_vat += ($item->product->price * $item->quantity * ($item->product->vat / 100));
                                 }
-                                else
-                                {
-                                $total += $item->product->price * $item->quantity * ($item->product->vat / 100) + $item->product->price * $item->quantity;
-                                $total_price_excl += $item->product->price *$item->quantity;
-                                $total_vat +=$item->product->discount_price ? ($item->product->discount_price) * $item->quantity * ($item->product->vat / 100) : ($item->product->price) * $item->quantity * ($item->product->vat / 100);
+                            }
+
+                            // Calculate total price including accessories
+                            foreach ($order->accessories->whereIn('product_id', $item->product->id) as $accessory) {
+                                if ($accessory->discount_price) {
+                                    $total += $accessory->discount_price * $item->quantity;
+                                    $total_vat += ($accessory->discount_price * $item->quantity * ($accessory->vat / 100));
+                                } else {
+                                    $total += $accessory->price * $item->quantity;
+                                    $total_vat += ($accessory->price * $item->quantity * ($accessory->vat / 100));
                                 }
-                                @endphp
-                        <tr data-id="{{ $order }}">
+                            }
+                        }
+                    @endphp
+
+                    <tr data-id="{{ $order }}">
                             <td data-th="Product">
                             <img style="width:8%; height:4%;" src="{{ asset('uploads/product/'.$item->product->image) }}" alt="{{ $item->product->image }}">
                             <p>{{ $item->product->name }}</p>
@@ -196,7 +209,7 @@ $newTotal = 0;
                         @if($item->discount_price)
                         <tr>
                             <td>Korting </td>
-                            <td>&euro; {{ number_format($total_discount -$productarribute->accessory->discount_price * $item->quantity, 2, ',', '.') }}</td>
+                            <td>&euro; {{ number_format($total_discount + $productarribute->accessory->discount_price * $item->quantity, 2, ',', '.') }}</td>
                         </tr>
                         @endif
                         <tr>

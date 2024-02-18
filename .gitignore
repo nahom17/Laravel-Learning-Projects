@@ -1,6 +1,10 @@
 /node_modules
 /public/hot
+/public/uploads
 /public/storage
+.DS_Store
+Thumbs.db
+.cache
 /storage/*.key
 /vendor
 .env

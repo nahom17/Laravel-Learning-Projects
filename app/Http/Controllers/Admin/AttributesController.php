@@ -4,18 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
-use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AttributesController extends Controller
 {
 
-    public function index()
+    public function index() : View
     {
         $attributes = Attribute::orderbyDesc('id')->paginate('30');
         return view('admin.attributes.index',compact('attributes'));
     }
-    public function search(Request $request)
+    public function search(Request $request): View
     {
         $search = $request->input('search');
         $attributes = Attribute::query()
@@ -23,20 +24,20 @@ class AttributesController extends Controller
         ->paginate(20);
         return view('admin.attributes.index',compact('attributes'));
     }
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
         $attribute = new Attribute();
         $attribute->name = $request->name;
         $attribute->save();
         return redirect()->route('admin.attributes.index')->with('message', 'categorie toegevoged');
     }
-    public function update(Request $request, Attribute $attribute)
+    public function update(Request $request, Attribute $attribute): RedirectResponse
     {
         $attribute->name = $request->name;
         $attribute->update();
         return redirect()->route('admin.attributes.index')->with('message', 'categorie bijgewerkt');
     }
-    public function destroy(Attribute $attribute)
+    public function destroy(Attribute $attribute): RedirectResponse
     {
         $attribute->delete();
         return redirect()->route('admin.attributes.index')->with('message', 'categorie verwijdered');

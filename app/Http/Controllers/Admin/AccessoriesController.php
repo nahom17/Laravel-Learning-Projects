@@ -8,22 +8,25 @@ use App\Models\Accessory;
 use App\Models\Product;
 use Attribute;
 use GuzzleHttp\Handler\Proxy;
+use http\Env\Response;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AccessoriesController extends Controller
 {
-    public function index(Product $product)
+    public function index(Product $product): View
     {
         $accessories = Accessory::where('product_id', $product->id)->orderbyDesc('attribute_id')->paginate('30');
         return view ('admin.products.accessories.index',compact('accessories','product'));
     }
 
-    public function create(Product $product)
+    public function create(Product $product): View
     {
         return view('admin.products.accessories.create',compact('product'));
     }
 
-    public function search( Request $request, Product $product)
+    public function search( Request $request, Product $product): View
     {
         $search = $request->input('search');
         $accessories = Accessory::orWhereRelation('product','name', 'LIKE', '%' . $request->search . '%')
@@ -34,7 +37,7 @@ class AccessoriesController extends Controller
         return view('admin.products.accessories.index',compact('accessories'));
     }
 
-    public function store(AccessoriesStoreValidation $request , Product $product, Attribute $attribute)
+    public function store(AccessoriesStoreValidation $request , Product $product, Attribute $attribute): RedirectResponse
     {
         $accessory = new Accessory();
         $accessory->attribute_id = $request->attribute_id;
@@ -52,11 +55,11 @@ class AccessoriesController extends Controller
         $accessory->save();
         return redirect()->route('admin.products.accessories.index',$product)->with('message', 'accessory toegevoged');
     }
-    public function edit(Product $product , Accessory $accessory)
+    public function edit(Product $product , Accessory $accessory) : View
     {
         return view('admin.products.accessories.edit',compact('accessory','product'));
     }
-    public function update(Request $request, Product $product , Accessory $accessory)
+    public function update(Request $request, Product $product , Accessory $accessory) : RedirectResponse
     {
         $accessory->attribute_id = $request->attribute_id;
         $accessory->product_id = $product->id;
@@ -73,7 +76,7 @@ class AccessoriesController extends Controller
         $accessory->save();
         return redirect()->route('admin.products.accessories.index',$product)->with('message', 'accessory bijgewerkt');
     }
-    public function destroy(Product $product, Accessory $accessory)
+    public function destroy(Product $product, Accessory $accessory):RedirectResponse
     {
         $accessory->delete();
         return redirect()->route('admin.products.accessories.index',$product)->with('message', 'accessory verwijdered');

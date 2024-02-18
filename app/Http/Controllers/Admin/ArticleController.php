@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Articles;
 use App\Models\User;
 use App\Models\Article;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\ArticleStoreValidation;
 use App\Http\Requests\ArticletUpdateValidation;
+use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(): View
     {
 
         $articles= Article::orderBydesc('id')->paginate(10);
         return view('admin.articles.index',compact('articles'));
     }
 
-    public function articleIndex()
+    public function articleIndex() : View
     {
         $today = now();
         $articles= Article::where([['start_date', '<=', $today], ['end_date', '>', $today]])->orderBy('end_date', 'asc')->paginate(10);
         return view('articles.index',compact('articles'));
     }
 
-    public function myArticles(Request $request)
+    public function myArticles(Request $request) : View
     {
         $articles = Article::where('user_id', $request->user()->id)->paginate(30);
         return view('articles.myarticles',compact('articles'));
     }
 
-    public function search(Request $request)
+    public function search(Request $request) : View
     {
         $search = $request->input('search');
         $articles = Article::query()
@@ -42,14 +44,17 @@ class ArticleController extends Controller
         return view('admin.articles.index',compact('articles'));
     }
 
-    public function create()
+    /**
+     * @throws AuthorizationException
+     */
+    public function create() : View
     {
         $this->authorize('isAdmin', User::class);
         return view('admin.articles.create');
     }
 
 
-    public function store(ArticleStoreValidation $request, User $user)
+    public function store(ArticleStoreValidation $request, User $user) : RedirectResponse
     {
         $article = new Article;
         $article->user_id = $request->user()->id;
@@ -72,20 +77,23 @@ class ArticleController extends Controller
 
     }
 
-    public function show(Article $article)
+    public function show(Article $article) : View
     {
 
         return view('articles.show',compact('article'));
     }
 
 
-    public function edit(Article $article)
+    /**
+     * @throws AuthorizationException
+     */
+    public function edit(Article $article) : View
     {
         $this->authorize('isAdmin', User::class);
         return view('admin.articles.edit',compact('article'));
     }
 
-    public function update(ArticletUpdateValidation $request , Article $article)
+    public function update(ArticletUpdateValidation $request , Article $article): RedirectResponse
     {
         $article->title = $request->title;
         $article->intro = $request->intro;
@@ -109,9 +117,9 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('message', 'Artikel bijgewerkt');
     }
 
-    public function destroy(Article $article)
+    public function destroy(Article $article): RedirectResponse
     {
-        if($article) {
+
          $destination = 'uploads/article/' . $article->image;
             if (File::exists($destination)) {
                 File::delete($destination);
@@ -119,9 +127,6 @@ class ArticleController extends Controller
             $article->delete();
             return redirect()->route('admin.articles.index')->with('message', 'Artikel verwijdered');
 
-        } else{
-            return redirect()->route('admin.articles.index')->with('message', 'Geen article gevonden');
-        }
     }
 
 }
