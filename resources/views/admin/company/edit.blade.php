@@ -151,7 +151,7 @@ Persoon toevoegen
                 @enderror
             </div>
                     <div class="mb-3 d-flex float-end">
-                        <a href="{{ route('admin.companies.persons.index')}}" class="nav-link me-3">Annuleren</a>
+                        <a href="{{ route('admin.companies.persons.index', ['company' => $company]) }}" class="nav-link me-3">Annuleren</a>
                         <button type="submit" class="btn btn-primary">Persoon toevoegen</button>
                     </div>
                 </form>

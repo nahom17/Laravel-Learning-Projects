@@ -7,18 +7,20 @@ use App\Models\Company;
 use App\Models\CompanyPerson;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CompanyPersonController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Company $company)
+    public function index(Company $company) : View
     {
         $companiesPerson = CompanyPerson::all();
-        return view('admin.company.person.index', compact('companiesPersons'));
+        return view('admin.company.person.index', compact('companiesPerson'));
     }
 
     /**
@@ -26,68 +28,13 @@ class CompanyPersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Company $company)
+    public function create(Company $company) : View
     {
         $companyPersons = CompanyPerson::where('company_id', $company->id)->get();
         $persons = Person::orderby('name')->get();
         foreach($companyPersons as $companyPerson) {
             $persons = $persons->where('id', '!=', $companyPerson->person_id);
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('admin.company.person.index', compact('companyPersons'));
     }
 }
